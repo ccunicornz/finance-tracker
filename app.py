@@ -1,4 +1,4 @@
-from flask import Flask 
+from flask import Flask, render_template, request, url_for, make_response 
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date
 
@@ -18,6 +18,18 @@ class Expense(db.Model):
 
 with app.app_context():
     db.create_all()
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/add", methods=['POST'])
+def add():
+    print("Form recieved", dict(request.form))
+    return make_response("Form recieved")
+
+
+
 
 
 @app.get("/")
